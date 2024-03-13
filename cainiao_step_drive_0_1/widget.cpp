@@ -1,8 +1,7 @@
 #include "widget.h"
 #include "ui_widget.h"
 
-QSerialPort *serialport=nullptr;
-step_drive *step_drive_1;
+QSerialPort *serialport = nullptr;
 
 Widget::Widget(QWidget *parent) :
     QWidget(parent),
@@ -16,8 +15,8 @@ Widget::Widget(QWidget *parent) :
     setLED(ui->label_led_1, 1, 30);
     setLED(ui->label_led_2, 0, 30);
 
-    serialport = new QSerialPort(this);
-
+    serialport = new QSerialPort;
+    _s = new step_drive;
 
     //扫描本机的串口，并添加到下拉框里
     foreach(const QSerialPortInfo &info,QSerialPortInfo::availablePorts())
@@ -103,10 +102,8 @@ void Widget::on_motor_link_clicked()
 
 void Widget::on_test_begin_clicked()
 {
-    Thread_1* t=new Thread_1;
-    t->start();
-    step_drive_1=new step_drive;
-    step_drive_1->show();
+
+    _s->show();
     this->hide();
 }
 

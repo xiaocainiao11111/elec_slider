@@ -668,3 +668,4 @@ void Motor::Controller::ClearIntegral() const
     config->dce.integralRemainder = 0;
     config->dce.outputKi = 0;
 }
+

@@ -9,9 +9,7 @@
 #include "thread/thread_1.h"
 #include "step_drive.h"
 
-
 extern QSerialPort *serialport;
-extern step_drive *step_drive_1;
 
 namespace Ui {
 class Widget;
@@ -26,6 +24,8 @@ public:
     ~Widget();
 
     void setLED(QLabel *label, int color, int size);
+
+    step_drive *_s = nullptr;
 
 private slots:
     void on_serial_open_clicked();

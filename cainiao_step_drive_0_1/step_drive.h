@@ -4,6 +4,9 @@
 #include <QWidget>
 #include "thread/thread_1.h"
 
+extern Thread_1 *_t;
+
+
 namespace Ui {
 class step_drive;
 }
@@ -16,6 +19,8 @@ public:
     explicit step_drive(QWidget *parent = nullptr);
     ~step_drive();
 
+    Thread_1 *_t = nullptr;
+
 private slots:
     void speed_ValueChanged(int val);
     void position_ValueChanged(int val);
@@ -24,6 +29,8 @@ private slots:
     void on_motor_init_clicked();
 
     void on_get_velocity_button_clicked();
+
+    void on_motor_cali_clicked();
 
 private:
     Ui::step_drive *ui;

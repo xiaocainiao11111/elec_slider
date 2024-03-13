@@ -1,6 +1,6 @@
 #include "thread_1.h"
 #include "widget.h"
-
+#include "step_drive.h"
 
 //延时函数
 void Delay_MSec(unsigned int msec)
@@ -22,10 +22,8 @@ void Rx_data()
         // 进行相应的操作
         for(uint8_t _a=0;_a<buffer.size();_a++)
         {
-        qDebug()<<(uint8_t)buffer[_a];
+            qDebug()<<(uint8_t)buffer[_a];
         }
-
-
     } else {
         // 处理索引超出范围的情况
     }
@@ -63,7 +61,7 @@ void Thread_1::run()
         _a++;
         Delay_MSec(1000);
 //        qDebug()<<_a;
-        Rx_data();
+//        Rx_data();
 
 
 
@@ -91,10 +89,19 @@ void change_estvelocity_slider()
 void Thread_1::Rx_readyRead()
 {
     QByteArray receivedData = serialport->readAll();
-//    uint8_t data_size = receivedData.size();
-//    qDebug()<<data_size;
-//    Delay_MSec(10);
-    change_estvelocity_slider();
+    //    qDebug()<<(uint8_t)receivedData[3];
+    //    qDebug()<<(uint8_t)receivedData[4];
+
+    //    qDebug()<<receivedData.size();
+    //    qDebug()<<(uint16_t)(receivedData[3]<<8|receivedData[4]);
+
+    if((uint8_t)receivedData[2]==0x22)
+    {
+        emit get_estvelocity((uint16_t)((uint16_t)receivedData[3]<<8|(uint8_t)receivedData[4]));
+
+    }
+
+
 }
 
 

@@ -19,6 +19,7 @@ public:
 
 signals:
     void sendToWidge(QByteArray b);
+    void get_estvelocity(uint16_t);
 
 
 
