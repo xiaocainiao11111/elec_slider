@@ -9,7 +9,7 @@ step_drive::step_drive(QWidget *parent) :
     ui(new Ui::step_drive)
 {
     ui->setupUi(this);
-    ui->motor_cali->setEnabled(0);
+    ui->motor_cali->setEnabled(1);
     ui->estvelocity_slider->setEnabled(0);
 
     ui->speed_slider->setMaximum(3000);//对应0到30(r/s)
@@ -26,7 +26,7 @@ step_drive::step_drive(QWidget *parent) :
     ui->estvelocity_slider->setMinimum(-30000);
 
     _t=new Thread_1;
-    _t->start();
+    _t->start();//开启新线程
 
     connect(ui->speed_slider,SIGNAL(valueChanged(int)),this,SLOT(speed_ValueChanged(int)));
     connect(ui->position_slider,SIGNAL(valueChanged(int)),this,SLOT(position_ValueChanged(int)));
@@ -93,7 +93,7 @@ void step_drive::on_get_velocity_button_clicked()
 
 void step_drive::on_motor_cali_clicked()
 {
-    uint8_t tx_speed_data[5]={0xAA,0x55,0x02,0x00,0x00};
-    serialport->write((char *)tx_speed_data,5);
+    uint8_t tx_cali_data[5]={0xAA,0x55,0x02,0x00,0x00};
+    serialport->write((char *)tx_cali_data,5);
 }
 
